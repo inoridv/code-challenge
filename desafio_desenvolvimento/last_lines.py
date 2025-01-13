@@ -3,9 +3,10 @@ import io
 from codecs import BufferedIncrementalDecoder
 from typing import Iterator
 
-class ReverseUtf8Decoder(BufferedIncrementalDecoder):
+class ReverseUtf8IncrementalDecoder(BufferedIncrementalDecoder):
     """
-    A custom UTF-8 decoder that supports reverse reading of UTF-8 encoded files based on codecs.
+    A custom UTF-8 incremental decoder that supports reverse reading of UTF-8 encoded files based on codecs.
+    Tailor-made due to codecs's IncrementalDecoders not supporting reverse lookup partial decoding.
     """
     def __init__(self, errors='strict'):
         super().__init__(errors)
@@ -150,7 +151,7 @@ def last_lines(file_path: str, buffer_size: int = io.DEFAULT_BUFFER_SIZE) -> Ite
         remaining = file_size
         buffer = b''
 
-        decoder = ReverseUtf8Decoder() if utf8 else None
+        decoder = ReverseUtf8IncrementalDecoder() if utf8 else None
 
         while remaining > buffer_size:
             chunk = read_chunk(f, remaining - buffer_size, buffer_size)

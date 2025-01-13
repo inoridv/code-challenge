@@ -1,4 +1,9 @@
 class computed_property():
+    """
+    A custom property-like data descriptor that allows property behavior while also
+    supporting the declaration of depend-on properties, making the decorated property
+    cached and recalculating it only when changes are made to any of the dependencies.
+    """
     def __init__(self, *dependencies):
         super().__init__()
         self.dependencies = dependencies

@@ -153,6 +153,28 @@ def test_reconcile_accounts():
                 ["2025-01-01", "A", "B", "C", "MISSING"],
             ],
         },
+        {
+            "list1": [
+                ['2020-12-04', 'Tecnologia', '16.00', 'Bitbucket'],
+                ['2020-12-04', 'Jurídico', '60.00', 'LinkSquares'],
+                ['2020-12-05', 'Tecnologia', '50.00', 'AWS']
+            ],
+            "list2": [
+                ['2020-12-04', 'Tecnologia', '16.00', 'Bitbucket'],
+                ['2020-12-05', 'Tecnologia', '49.99', 'AWS'],
+                ['2020-12-04', 'Jurídico', '60.00', 'LinkSquares']
+            ],
+            "expected1": [
+                ['2020-12-04', 'Tecnologia', '16.00', 'Bitbucket', 'FOUND'],
+                ['2020-12-04', 'Jurídico', '60.00', 'LinkSquares', 'FOUND'],
+                ['2020-12-05', 'Tecnologia', '50.00', 'AWS', 'MISSING']
+            ],
+            "expected2": [
+                ['2020-12-04', 'Tecnologia', '16.00', 'Bitbucket', 'FOUND'],
+                ['2020-12-05', 'Tecnologia', '49.99', 'AWS', 'MISSING'],
+                ['2020-12-04', 'Jurídico', '60.00', 'LinkSquares', 'FOUND']
+            ]
+        }
     ]
 
     for i, case in enumerate(test_cases):
